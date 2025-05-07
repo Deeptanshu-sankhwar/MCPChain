@@ -1,4 +1,3 @@
-
 # MCPChain: Architecting a Decentralized Trust Layer for the Agentic AI Economy
 
 ## I. Executive Summary
@@ -61,7 +60,7 @@ Key players and developments in the MCP landscape as of mid-2025 include:
 The following table summarizes key components of the MCP ecosystem:
 
 
-# Table 1: Key MCP Adopters and Ecosystem Components (as of mid-2025)
+## Table 1: Key MCP Adopters and Ecosystem Components (as of mid-2025)
 
 | **Category**            | **Entity/Project Name**         | **Significance/Role in MCP Ecosystem**                                                                 |
 |-------------------------|----------------------------------|---------------------------------------------------------------------------------------------------------|
@@ -160,7 +159,7 @@ MCPChain's **Unique Selling Proposition (USP)** can be encapsulated as: **"MCPCh
 The following table provides a comparative overview:
 
 
-# Table 2: Comparative Analysis — MCPChain vs. Emerging Decentralized AI/MCP Platforms
+## Table 2: Comparative Analysis — MCPChain vs. Emerging Decentralized AI/MCP Platforms
 
 | **Feature/Aspect**       | **MCPChain (Proposed)**                                                                 | **DeMCP (via Phala)**                                               | **GaiaNet**                                                                 | **Lumoz MCP Server**                                                             |
 |--------------------------|------------------------------------------------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
@@ -280,7 +279,7 @@ A well-designed tokenomic model is essential for MCPChain's success, serving not
 The following table outlines the proposed utilities for the MCPChain native token:
 
 
-# Table 3: Proposed Token Utility Matrix for `$MCPC` (MCPChain Coin)
+## Table 3: Proposed Token Utility Matrix for `$MCPC` (MCPChain Coin)
 
 | **Potential Token Utility**      | **Description**                                                                                  | **Mechanism**                                                                 | **Benefit to Network/User**                                                              | **Incentive Alignment**                                                                    | **Relevant Inspirations (Examples)**         |
 |----------------------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-----------------------------------------------|
