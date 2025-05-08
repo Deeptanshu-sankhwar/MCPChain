@@ -1,0 +1,17 @@
+syntax = "proto3";
+package mcpchain.mcpchain;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "mcpchain/mcpchain/params.proto";
+
+option go_package = "mcpchain/x/mcpchain/types";
+
+// GenesisState defines the mcpchain module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
