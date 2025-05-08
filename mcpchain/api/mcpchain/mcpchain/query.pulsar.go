@@ -2,6 +2,11 @@
 package mcpchain
 
 import (
+<<<<<<< HEAD
+	_ "cosmossdk.io/api/amino"
+	_ "cosmossdk.io/api/cosmos/base/query/v1beta1"
+	fmt "fmt"
+=======
 	fmt "fmt"
 	io "io"
 	reflect "reflect"
@@ -9,12 +14,19 @@ import (
 
 	_ "cosmossdk.io/api/amino"
 	_ "cosmossdk.io/api/cosmos/base/query/v1beta1"
+>>>>>>> b82fbed9cc8ed479049768721ae6e92f68968ec2
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+<<<<<<< HEAD
+	io "io"
+	reflect "reflect"
+	sync "sync"
+=======
+>>>>>>> b82fbed9cc8ed479049768721ae6e92f68968ec2
 )
 
 var (
