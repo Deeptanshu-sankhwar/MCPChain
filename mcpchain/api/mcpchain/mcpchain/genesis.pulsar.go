@@ -15,12 +15,9 @@ import (
 )
 
 var (
-	md_GenesisState        protoreflect.MessageDescriptor
 	fd_GenesisState_params protoreflect.FieldDescriptor
 )
 
-func init() {
-	file_mcpchain_mcpchain_genesis_proto_init()
 	md_GenesisState = File_mcpchain_mcpchain_genesis_proto.Messages().ByName("GenesisState")
 	fd_GenesisState_params = md_GenesisState.Fields().ByName("params")
 }
