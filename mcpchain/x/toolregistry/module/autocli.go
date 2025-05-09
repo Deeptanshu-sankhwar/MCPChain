@@ -28,6 +28,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
 				},
+				{
+					RpcMethod:      "RegisterServer",
+					Use:            "register-server [owner-address] [description] [endpoint-url] [mcp-schema-hash] [staked-amount]",
+					Short:          "Send a register-server tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "ownerAddress"}, {ProtoField: "description"}, {ProtoField: "endpointUrl"}, {ProtoField: "mcpSchemaHash"}, {ProtoField: "stakedAmount"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
