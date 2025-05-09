@@ -34,6 +34,18 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a register-server tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "ownerAddress"}, {ProtoField: "description"}, {ProtoField: "endpointUrl"}, {ProtoField: "mcpSchemaHash"}, {ProtoField: "stakedAmount"}},
 				},
+				{
+					RpcMethod:      "UpdateServerDetails",
+					Use:            "update-server-details [id] [description] [endpoint-url]",
+					Short:          "Send a update-server-details tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "description"}, {ProtoField: "endpointUrl"}},
+				},
+				{
+					RpcMethod:      "RemoveServer",
+					Use:            "remove-server [id]",
+					Short:          "Send a remove-server tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
