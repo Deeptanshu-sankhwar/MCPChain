@@ -20,8 +20,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName   = "/mcpchain.toolregistry.Msg/UpdateParams"
-	Msg_RegisterServer_FullMethodName = "/mcpchain.toolregistry.Msg/RegisterServer"
+	Msg_UpdateParams_FullMethodName        = "/mcpchain.toolregistry.Msg/UpdateParams"
+	Msg_RegisterServer_FullMethodName      = "/mcpchain.toolregistry.Msg/RegisterServer"
+	Msg_UpdateServerDetails_FullMethodName = "/mcpchain.toolregistry.Msg/UpdateServerDetails"
+	Msg_RemoveServer_FullMethodName        = "/mcpchain.toolregistry.Msg/RemoveServer"
 )
 
 // MsgClient is the client API for Msg service.
@@ -32,6 +34,8 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	RegisterServer(ctx context.Context, in *MsgRegisterServer, opts ...grpc.CallOption) (*MsgRegisterServerResponse, error)
+	UpdateServerDetails(ctx context.Context, in *MsgUpdateServerDetails, opts ...grpc.CallOption) (*MsgUpdateServerDetailsResponse, error)
+	RemoveServer(ctx context.Context, in *MsgRemoveServer, opts ...grpc.CallOption) (*MsgRemoveServerResponse, error)
 }
 
 type msgClient struct {
@@ -60,6 +64,24 @@ func (c *msgClient) RegisterServer(ctx context.Context, in *MsgRegisterServer, o
 	return out, nil
 }
 
+func (c *msgClient) UpdateServerDetails(ctx context.Context, in *MsgUpdateServerDetails, opts ...grpc.CallOption) (*MsgUpdateServerDetailsResponse, error) {
+	out := new(MsgUpdateServerDetailsResponse)
+	err := c.cc.Invoke(ctx, Msg_UpdateServerDetails_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) RemoveServer(ctx context.Context, in *MsgRemoveServer, opts ...grpc.CallOption) (*MsgRemoveServerResponse, error) {
+	out := new(MsgRemoveServerResponse)
+	err := c.cc.Invoke(ctx, Msg_RemoveServer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -68,6 +90,8 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	RegisterServer(context.Context, *MsgRegisterServer) (*MsgRegisterServerResponse, error)
+	UpdateServerDetails(context.Context, *MsgUpdateServerDetails) (*MsgUpdateServerDetailsResponse, error)
+	RemoveServer(context.Context, *MsgRemoveServer) (*MsgRemoveServerResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -80,6 +104,12 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) RegisterServer(context.Context, *MsgRegisterServer) (*MsgRegisterServerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterServer not implemented")
+}
+func (UnimplementedMsgServer) UpdateServerDetails(context.Context, *MsgUpdateServerDetails) (*MsgUpdateServerDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateServerDetails not implemented")
+}
+func (UnimplementedMsgServer) RemoveServer(context.Context, *MsgRemoveServer) (*MsgRemoveServerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveServer not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -130,6 +160,42 @@ func _Msg_RegisterServer_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_UpdateServerDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateServerDetails)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateServerDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_UpdateServerDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateServerDetails(ctx, req.(*MsgUpdateServerDetails))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_RemoveServer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRemoveServer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).RemoveServer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_RemoveServer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).RemoveServer(ctx, req.(*MsgRemoveServer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -144,6 +210,14 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegisterServer",
 			Handler:    _Msg_RegisterServer_Handler,
+		},
+		{
+			MethodName: "UpdateServerDetails",
+			Handler:    _Msg_UpdateServerDetails_Handler,
+		},
+		{
+			MethodName: "RemoveServer",
+			Handler:    _Msg_RemoveServer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
