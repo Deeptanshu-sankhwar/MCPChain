@@ -17,6 +17,27 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "params",
 					Short:     "Shows the parameters of the module",
 				},
+				{
+					RpcMethod:      "ServerById",
+					Use:            "server-by-id [id]",
+					Short:          "Query server-by-id",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
+
+				{
+					RpcMethod:      "ServersByOwner",
+					Use:            "servers-by-owner [owner-address]",
+					Short:          "Query servers-by-owner",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "ownerAddress"}},
+				},
+
+				{
+					RpcMethod:      "AllServers",
+					Use:            "all-servers",
+					Short:          "Query all-servers",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

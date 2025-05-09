@@ -50,12 +50,14 @@ message MsgRegisterServer {
   string stakedAmount  = 6;
 }
 
-message MsgRegisterServerResponse {}
+message MsgRegisterServerResponse {
+  uint64 id = 1;
+}
 
 message MsgUpdateServerDetails {
   option (cosmos.msg.v1.signer) = "creator";
   string creator     = 1;
-  string id          = 2;
+  uint64 id          = 2;
   string description = 3;
   string endpointUrl = 4;
 }
@@ -65,7 +67,7 @@ message MsgUpdateServerDetailsResponse {}
 message MsgRemoveServer {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  string id      = 2;
+  uint64 id      = 2;
 }
 
 message MsgRemoveServerResponse {}
