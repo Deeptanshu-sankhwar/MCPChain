@@ -6,6 +6,7 @@ import "cosmos/msg/v1/msg.proto";
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "mcpchain/toolregistry/params.proto";
+import "mcpchain/toolregistry/registered_server.proto";
 
 option go_package = "mcpchain/x/toolregistry/types";
 
