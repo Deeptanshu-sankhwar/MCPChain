@@ -54,8 +54,11 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 
 	mcpchainmodulev1 "mcpchain/api/mcpchain/mcpchain/module"
+	toolregistrymodulev1 "mcpchain/api/mcpchain/toolregistry/module"
 	_ "mcpchain/x/mcpchain/module" // import for side-effects
 	mcpchainmoduletypes "mcpchain/x/mcpchain/types"
+	_ "mcpchain/x/toolregistry/module" // import for side-effects
+	toolregistrymoduletypes "mcpchain/x/toolregistry/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -94,6 +97,7 @@ var (
 		circuittypes.ModuleName,
 		// chain modules
 		mcpchainmoduletypes.ModuleName,
+		toolregistrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -119,6 +123,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		mcpchainmoduletypes.ModuleName,
+		toolregistrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -138,6 +143,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		mcpchainmoduletypes.ModuleName,
+		toolregistrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -296,6 +302,10 @@ var (
 			{
 				Name:   mcpchainmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&mcpchainmodulev1.Module{}),
+			},
+			{
+				Name:   toolregistrymoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&toolregistrymodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
