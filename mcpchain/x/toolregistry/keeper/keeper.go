@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	ServerPrefix   = "RegisteredServer-value-"
+	ServerPrefix   = "RegisteredServer/value/"
 	ServerCountKey = "RegisteredServer-count"
 )
 
@@ -78,6 +78,25 @@ func (k Keeper) AppendRegisteredServer(ctx sdk.Context, server types.RegisteredS
 	}
 
 	return id, nil
+}
+
+func (k Keeper) GetAllRegisteredServers(ctx sdk.Context) []types.RegisteredServer {
+	store := k.storeService.OpenKVStore(ctx)
+	iterator, err := store.Iterator([]byte(ServerPrefix), nil)
+	if err != nil {
+		return nil
+	}
+	defer iterator.Close()
+
+	var servers []types.RegisteredServer
+	for ; iterator.Valid(); iterator.Next() {
+		var server types.RegisteredServer
+		if err := k.cdc.Unmarshal(iterator.Value(), &server); err != nil {
+			continue
+		}
+		servers = append(servers, server)
+	}
+	return servers
 }
 
 type (
