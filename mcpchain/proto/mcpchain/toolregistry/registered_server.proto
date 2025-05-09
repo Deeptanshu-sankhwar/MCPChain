@@ -1,0 +1,14 @@
+syntax = "proto3";
+package mcpchain.toolregistry;
+
+option go_package = "mcpchain/x/toolregistry/types";
+
+message RegisteredServer {
+  uint64 id = 1;
+  string owner_address = 2;
+  string description = 3;
+  string endpoint_url = 4;
+  string mcp_schema_hash = 5;
+  string staked_amount = 6;
+  int64 registration_timestamp = 7;
+}
