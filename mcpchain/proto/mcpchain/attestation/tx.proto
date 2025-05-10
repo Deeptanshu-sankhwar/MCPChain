@@ -20,6 +20,22 @@ service Msg {
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
 }
 
+// MsgLogAttestation defines a request to log an attestation
+message MsgLogAttestation {
+  option (cosmos.msg.v1.signer) = "agent_id";
+
+  string agent_id       = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  uint64 tool_id        = 2;
+  string tool_name      = 3;
+  string request_hash   = 4;
+  string response_hash  = 5;
+}
+
+// MsgLogAttestationResponse returns the attestation ID
+message MsgLogAttestationResponse {
+  uint64 id = 1;
+}
+
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
   option (cosmos.msg.v1.signer) = "authority";
