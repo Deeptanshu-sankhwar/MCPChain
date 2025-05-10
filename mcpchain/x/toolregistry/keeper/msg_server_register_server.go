@@ -15,13 +15,31 @@ func (k msgServer) RegisterServer(goCtx context.Context, msg *types.MsgRegisterS
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Optional: enforce unique endpoint URL
-	allIds := k.Keeper.GetAllRegisteredServers(ctx)
-	for _, s := range allIds {
+	allServers := k.Keeper.GetAllRegisteredServers(ctx)
+	for _, s := range allServers {
 		if s.EndpointUrl == msg.EndpointUrl {
 			return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidRequest, "endpoint already registered: %s", msg.EndpointUrl)
 		}
 	}
 
+	// Validate sender address
+	sender, err := sdk.AccAddressFromBech32(msg.OwnerAddress)
+	if err != nil {
+		return nil, errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "invalid owner address")
+	}
+
+	// Parse staked amount
+	amount, err := sdk.ParseCoinNormalized(msg.StakedAmount)
+	if err != nil {
+		return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidCoins, "invalid staked amount: %v", err)
+	}
+
+	// Transfer tokens from owner to module account
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, sender, types.ModuleName, sdk.NewCoins(amount)); err != nil {
+		return nil, err
+	}
+
+	// Build RegisteredServer object
 	server := types.RegisteredServer{
 		OwnerAddress:          msg.OwnerAddress,
 		Description:           msg.Description,
@@ -33,6 +51,16 @@ func (k msgServer) RegisterServer(goCtx context.Context, msg *types.MsgRegisterS
 
 	id, err := k.Keeper.AppendRegisteredServer(ctx, server)
 	if err != nil {
+		return nil, err
+	}
+
+	// Store stake record
+	stake := types.StakeRecord{
+		ServerId:      id,
+		Amount:        msg.StakedAmount,
+		StakerAddress: msg.OwnerAddress,
+	}
+	if err := k.Keeper.SetStakeRecord(ctx, stake); err != nil {
 		return nil, err
 	}
 
