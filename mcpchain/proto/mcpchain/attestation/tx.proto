@@ -6,6 +6,8 @@ import "cosmos/msg/v1/msg.proto";
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "mcpchain/attestation/params.proto";
+import "mcpchain/attestation/attestation_record.proto";
+
 
 option go_package = "mcpchain/x/attestation/types";
 
