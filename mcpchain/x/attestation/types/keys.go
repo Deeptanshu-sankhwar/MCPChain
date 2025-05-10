@@ -1,6 +1,10 @@
 package types
 
 const (
+	EventTypeLogAttestation = "log_attestation"
+)
+
+const (
 	// ModuleName defines the module name
 	ModuleName = "attestation"
 
