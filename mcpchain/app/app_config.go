@@ -53,8 +53,11 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	"google.golang.org/protobuf/types/known/durationpb"
 
+	attestationmodulev1 "mcpchain/api/mcpchain/attestation/module"
 	mcpchainmodulev1 "mcpchain/api/mcpchain/mcpchain/module"
 	toolregistrymodulev1 "mcpchain/api/mcpchain/toolregistry/module"
+	_ "mcpchain/x/attestation/module" // import for side-effects
+	attestationmoduletypes "mcpchain/x/attestation/types"
 	_ "mcpchain/x/mcpchain/module" // import for side-effects
 	mcpchainmoduletypes "mcpchain/x/mcpchain/types"
 	_ "mcpchain/x/toolregistry/module" // import for side-effects
@@ -98,6 +101,7 @@ var (
 		// chain modules
 		mcpchainmoduletypes.ModuleName,
 		toolregistrymoduletypes.ModuleName,
+		attestationmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -124,6 +128,7 @@ var (
 		// chain modules
 		mcpchainmoduletypes.ModuleName,
 		toolregistrymoduletypes.ModuleName,
+		attestationmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -144,6 +149,7 @@ var (
 		// chain modules
 		mcpchainmoduletypes.ModuleName,
 		toolregistrymoduletypes.ModuleName,
+		attestationmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -306,6 +312,10 @@ var (
 			{
 				Name:   toolregistrymoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&toolregistrymodulev1.Module{}),
+			},
+			{
+				Name:   attestationmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&attestationmodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

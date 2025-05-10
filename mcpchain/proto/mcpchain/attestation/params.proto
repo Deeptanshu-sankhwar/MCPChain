@@ -1,0 +1,15 @@
+syntax = "proto3";
+package mcpchain.attestation;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "mcpchain/x/attestation/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "mcpchain/x/attestation/Params";
+  option (gogoproto.equal) = true;
+
+  
+}
