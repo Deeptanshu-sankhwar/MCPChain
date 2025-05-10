@@ -78,6 +78,7 @@ import (
 	mcpchainmodulekeeper "mcpchain/x/mcpchain/keeper"
 	toolregistrymodulekeeper "mcpchain/x/toolregistry/keeper"
 
+	attestationmodulekeeper "mcpchain/x/attestation/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"mcpchain/docs"
@@ -149,6 +150,7 @@ type App struct {
 
 	McpchainKeeper     mcpchainmodulekeeper.Keeper
 	ToolregistryKeeper toolregistrymodulekeeper.Keeper
+	AttestationKeeper  attestationmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -256,6 +258,7 @@ func New(
 		&app.ToolregistryKeeper,
 		&app.ToolregistryKeeper,
 		&app.ToolregistryKeeper,
+		&app.AttestationKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
