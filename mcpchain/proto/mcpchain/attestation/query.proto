@@ -6,6 +6,8 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mcpchain/attestation/params.proto";
+import "mcpchain/attestation/attestation_record.proto";
+
 
 option go_package = "mcpchain/x/attestation/types";
 

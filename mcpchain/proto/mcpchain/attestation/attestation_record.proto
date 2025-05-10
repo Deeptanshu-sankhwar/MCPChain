@@ -1,0 +1,14 @@
+syntax = "proto3";
+package mcpchain.attestation;
+
+option go_package = "mcpchain/x/attestation/types";
+
+message AttestationRecord {
+  string interaction_id = 1;
+  string agent_id = 2;
+  uint64 tool_id = 3;
+  string tool_name = 4;
+  string request_hash = 5;
+  string response_hash = 6;
+  int64 timestamp = 7;
+}
