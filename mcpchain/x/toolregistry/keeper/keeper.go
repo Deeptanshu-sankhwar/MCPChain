@@ -82,7 +82,7 @@ func (k Keeper) AppendRegisteredServer(ctx sdk.Context, server types.RegisteredS
 
 func (k Keeper) GetAllRegisteredServers(ctx sdk.Context) []types.RegisteredServer {
 	store := k.storeService.OpenKVStore(ctx)
-	iterator, err := store.Iterator([]byte(ServerPrefix), nil)
+	iterator, err := store.Iterator(nil, nil)
 	if err != nil {
 		return nil
 	}
@@ -90,6 +90,9 @@ func (k Keeper) GetAllRegisteredServers(ctx sdk.Context) []types.RegisteredServe
 
 	var servers []types.RegisteredServer
 	for ; iterator.Valid(); iterator.Next() {
+		if string(iterator.Key()) == ServerCountKey {
+			continue
+		}
 		var server types.RegisteredServer
 		if err := k.cdc.Unmarshal(iterator.Value(), &server); err != nil {
 			continue
