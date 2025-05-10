@@ -19,7 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName = "/mcpchain.attestation.Query/Params"
+	Query_AttestationById_FullMethodName     = "/mcpchain.attestation.Query/AttestationById"
+	Query_AttestationsByAgent_FullMethodName = "/mcpchain.attestation.Query/AttestationsByAgent"
+	Query_AttestationsByTool_FullMethodName  = "/mcpchain.attestation.Query/AttestationsByTool"
+	Query_Params_FullMethodName              = "/mcpchain.attestation.Query/Params"
 )
 
 // QueryClient is the client API for Query service.
@@ -27,6 +30,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
+	AttestationById(ctx context.Context, in *QueryAttestationByIdRequest, opts ...grpc.CallOption) (*QueryAttestationByIdResponse, error)
+	AttestationsByAgent(ctx context.Context, in *QueryAttestationsByAgentRequest, opts ...grpc.CallOption) (*QueryAttestationsByAgentResponse, error)
+	AttestationsByTool(ctx context.Context, in *QueryAttestationsByToolRequest, opts ...grpc.CallOption) (*QueryAttestationsByToolResponse, error)
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
 }
 
@@ -36,6 +42,33 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc.ClientConnInterface) QueryClient {
 	return &queryClient{cc}
+}
+
+func (c *queryClient) AttestationById(ctx context.Context, in *QueryAttestationByIdRequest, opts ...grpc.CallOption) (*QueryAttestationByIdResponse, error) {
+	out := new(QueryAttestationByIdResponse)
+	err := c.cc.Invoke(ctx, Query_AttestationById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) AttestationsByAgent(ctx context.Context, in *QueryAttestationsByAgentRequest, opts ...grpc.CallOption) (*QueryAttestationsByAgentResponse, error) {
+	out := new(QueryAttestationsByAgentResponse)
+	err := c.cc.Invoke(ctx, Query_AttestationsByAgent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) AttestationsByTool(ctx context.Context, in *QueryAttestationsByToolRequest, opts ...grpc.CallOption) (*QueryAttestationsByToolResponse, error) {
+	out := new(QueryAttestationsByToolResponse)
+	err := c.cc.Invoke(ctx, Query_AttestationsByTool_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
@@ -52,6 +85,9 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 // for forward compatibility
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
+	AttestationById(context.Context, *QueryAttestationByIdRequest) (*QueryAttestationByIdResponse, error)
+	AttestationsByAgent(context.Context, *QueryAttestationsByAgentRequest) (*QueryAttestationsByAgentResponse, error)
+	AttestationsByTool(context.Context, *QueryAttestationsByToolRequest) (*QueryAttestationsByToolResponse, error)
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
@@ -60,6 +96,15 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
+func (UnimplementedQueryServer) AttestationById(context.Context, *QueryAttestationByIdRequest) (*QueryAttestationByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AttestationById not implemented")
+}
+func (UnimplementedQueryServer) AttestationsByAgent(context.Context, *QueryAttestationsByAgentRequest) (*QueryAttestationsByAgentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AttestationsByAgent not implemented")
+}
+func (UnimplementedQueryServer) AttestationsByTool(context.Context, *QueryAttestationsByToolRequest) (*QueryAttestationsByToolResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AttestationsByTool not implemented")
+}
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
@@ -74,6 +119,60 @@ type UnsafeQueryServer interface {
 
 func RegisterQueryServer(s grpc.ServiceRegistrar, srv QueryServer) {
 	s.RegisterService(&Query_ServiceDesc, srv)
+}
+
+func _Query_AttestationById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAttestationByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).AttestationById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_AttestationById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).AttestationById(ctx, req.(*QueryAttestationByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_AttestationsByAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAttestationsByAgentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).AttestationsByAgent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_AttestationsByAgent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).AttestationsByAgent(ctx, req.(*QueryAttestationsByAgentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_AttestationsByTool_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAttestationsByToolRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).AttestationsByTool(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_AttestationsByTool_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).AttestationsByTool(ctx, req.(*QueryAttestationsByToolRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -101,6 +200,18 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "mcpchain.attestation.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "AttestationById",
+			Handler:    _Query_AttestationById_Handler,
+		},
+		{
+			MethodName: "AttestationsByAgent",
+			Handler:    _Query_AttestationsByAgent_Handler,
+		},
+		{
+			MethodName: "AttestationsByTool",
+			Handler:    _Query_AttestationsByTool_Handler,
+		},
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
