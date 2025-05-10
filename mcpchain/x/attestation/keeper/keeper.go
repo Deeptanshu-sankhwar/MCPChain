@@ -80,6 +80,19 @@ func (k Keeper) GetAllAttestations(ctx sdk.Context) []types.AttestationRecord {
 	return list
 }
 
+func (k Keeper) GetAttestation(ctx sdk.Context, id uint64) (types.AttestationRecord, bool) {
+	store := k.storeService.OpenKVStore(ctx)
+	bz, err := store.Get(GetAttestationKey(id))
+	if err != nil || bz == nil {
+		return types.AttestationRecord{}, false
+	}
+	var out types.AttestationRecord
+	if err := k.cdc.Unmarshal(bz, &out); err != nil {
+		return types.AttestationRecord{}, false
+	}
+	return out, true
+}
+
 type (
 	Keeper struct {
 		cdc          codec.BinaryCodec

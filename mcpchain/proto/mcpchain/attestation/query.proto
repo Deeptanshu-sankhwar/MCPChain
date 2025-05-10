@@ -14,10 +14,38 @@ option go_package = "mcpchain/x/attestation/types";
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
+  rpc AttestationById(QueryAttestationByIdRequest) returns (QueryAttestationByIdResponse);
+  rpc AttestationsByAgent(QueryAttestationsByAgentRequest) returns (QueryAttestationsByAgentResponse);
+  rpc AttestationsByTool(QueryAttestationsByToolRequest) returns (QueryAttestationsByToolResponse);
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/mcpchain/attestation/params";
   }
 }
+
+message QueryAttestationByIdRequest {
+  uint64 id = 1;
+}
+
+message QueryAttestationByIdResponse {
+  AttestationRecord attestation = 1;
+}
+
+message QueryAttestationsByAgentRequest {
+  string agent_id = 1;
+}
+
+message QueryAttestationsByAgentResponse {
+  repeated AttestationRecord attestations = 1;
+}
+
+message QueryAttestationsByToolRequest {
+  uint64 tool_id = 1;
+}
+
+message QueryAttestationsByToolResponse {
+  repeated AttestationRecord attestations = 1;
+}
+
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
