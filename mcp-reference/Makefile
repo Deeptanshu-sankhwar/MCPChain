@@ -1,3 +1,3 @@
 run:
-	go run ./server/main.go ./server/handlers.go
+	go run ./mcp-server/main.go ./mcp-server/handlers.go
 
