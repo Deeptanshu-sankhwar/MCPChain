@@ -23,6 +23,16 @@ mcp-client discover
 mcp-client invoke --endpoint http://localhost:8080/echo --payload '{"text": "hello"}'
 ```
 
+```bash
+./mcp-client invoke \
+  --endpoint http://localhost:8080/echo \
+  --payload '{"text": "hello"}' \
+  --agent-id cosmos1xyz... \
+  --tool-id 0 \
+  --tool-name echo-tool \
+  --from mykey
+```
+
 or for `/time`:
 
 ```bash
@@ -30,13 +40,14 @@ mcp-client invoke --endpoint http://localhost:8080/time
 ```
 
 * Makes a **GET** or **POST** request to an MCP-compliant server.
-* Prints:
+* Then, it submits an on-chain attestation by calling `MsgLogAttestation` with:
 
-  * Response
-  * `SHA256(request)`
-  * `SHA256(response)`
-  * Timestamp
-  * Full output as JSON → useful for attestation.
+  * agent_id
+  * tool_id
+  * tool_name
+  * request_hash
+  * response_hash
+  * timestamp
 
 ---
 
@@ -99,4 +110,14 @@ go run main.go
 
 ```bash
 ./mcp-client invoke --endpoint http://localhost:8080/echo --payload '{"text": "hello MCP!"}'
+```
+
+```bash
+./mcp-client invoke \
+  --endpoint http://localhost:8080/echo \
+  --payload '{"text": "hello"}' \
+  --agent-id cosmos1xyz... \
+  --tool-id 0 \
+  --tool-name echo-tool \
+  --from mykey
 ```
