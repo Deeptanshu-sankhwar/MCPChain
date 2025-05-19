@@ -18,6 +18,9 @@ service Msg {
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+  
+  // LogAttestation logs an attestation of an AI tool interaction
+  rpc LogAttestation(MsgLogAttestation) returns (MsgLogAttestationResponse);
 }
 
 // MsgLogAttestation defines a request to log an attestation
