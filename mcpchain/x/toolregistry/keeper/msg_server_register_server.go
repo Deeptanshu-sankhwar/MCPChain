@@ -35,7 +35,7 @@ func (k msgServer) RegisterServer(goCtx context.Context, msg *types.MsgRegisterS
 	}
 
 	// Transfer tokens from owner to module account
-	if err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, sender, types.ModuleName, sdk.NewCoins(amount)); err != nil {
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(goCtx, sender, types.ModuleName, sdk.NewCoins(amount)); err != nil {
 		return nil, err
 	}
 
